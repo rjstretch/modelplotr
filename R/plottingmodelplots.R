@@ -276,6 +276,8 @@ annotate_plot <- function(plot=plot,plot_input=plot_input_prepared,
 #' @seealso \url{https://github.com/modelplot/modelplotr} for details on the package
 #' @seealso \url{https://modelplot.github.io/} for our blog on the value of the model plots
 plot_cumgains <- function(data=plot_input,custom_line_colors=NA,highlight_decile=NA,highlight_how='plot_text',
+                          title="Cumulative Gains",subtitle="",
+                          xlab="decile",ylab="cumulative gains",
                           save_fig=FALSE,save_fig_filename=NA) {
 
   plot_input <- data
@@ -312,9 +314,9 @@ plot_cumgains <- function(data=plot_input,custom_line_colors=NA,highlight_decile
     ggplot2::scale_color_manual(values=pp$gainslinecols)+
     ggplot2::scale_size_manual(values=pp$gainslinesizes)+
     ggplot2::scale_alpha_manual(values=pp$gainsalphas)+
-    ggplot2::scale_x_continuous(name="decile", breaks=0:10, labels=0:10,expand = c(0, 0.02)) +
-    ggplot2::scale_y_continuous(name="cumulative gains",breaks=seq(0,1,0.2),labels = scales::percent ,expand = c(0, 0.02)) +
-    ggplot2::labs(title=pp$plottitle,subtitle=pp$plotsubtitle) +
+    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=scales::percent,expand = c(0, 0.02)) +
+    ggplot2::scale_y_continuous(name=ylab,breaks=seq(0,1,0.2),labels = scales::percent ,expand = c(0, 0.02)) +
+    ggplot2::labs(title=title,subtitle=subtitle) +
     ggplot2::theme_minimal() +
     ggplot2::theme(plot.title = ggplot2::element_text(size = 14,hjust = 0.5),
                    plot.subtitle = ggplot2::element_text(size = 10,hjust = 0.5,face="italic")) +
