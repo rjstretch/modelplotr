@@ -609,7 +609,7 @@ plot_response <- function(data=plot_input,custom_line_colors=NA,highlight_decile
     ggplot2::scale_color_manual(values=pp$resplinecols)+
     ggplot2::scale_size_manual(values=pp$resplinesizes)+
     ggplot2::scale_alpha_manual(values=pp$respalphas)+
-    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=function(x) paste0(x*10, "%"),expand = c(0, 0.02)) +
+    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=0:10, expand = c(0, 0.02)) +
     ggplot2::scale_y_continuous(name=ylab,labels = scales::percent ,expand = c(0, 0.02)) +
     ggplot2::expand_limits(y=0) +
     ggplot2::labs(title=pp$plottitle,subtitle=pp$plotsubtitle) +
@@ -759,7 +759,7 @@ plot_cumresponse <- function(data=plot_input,custom_line_colors=NA,highlight_dec
     ggplot2::scale_color_manual(values=pp$resplinecols)+
     ggplot2::scale_size_manual(values=pp$resplinesizes)+
     ggplot2::scale_alpha_manual(values=pp$respalphas)+
-    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=function(x) paste0(x*10, "%"),expand = c(0, 0.02)) +
+    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=0:10, expand = c(0, 0.02)) +
     ggplot2::scale_y_continuous(name=ylab,labels = scales::percent ,expand = c(0, 0.02)) +           
     ggplot2::expand_limits(y=0) +
     ggplot2::labs(title=pp$plottitle,subtitle=pp$plotsubtitle) +
