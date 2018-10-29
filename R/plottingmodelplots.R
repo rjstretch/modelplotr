@@ -178,7 +178,7 @@ annotate_plot <- function(plot=plot,plot_input=plot_input_prepared,
     if(pp$plottype=="Response") annovalues$text <- annovalues$responsetext
     if(pp$plottype=="Cumulative response") annovalues$text <- annovalues$cumresponsetext
 
-    cat(paste(' ','Plot annotation:',paste(paste0('- ',annovalues$text), collapse = '\n'),' ',' ', sep = '\n'))
+    #cat(paste(' ','Plot annotation:',paste(paste0('- ',annovalues$text), collapse = '\n'),' ',' ', sep = '\n'))
 
     if(highlight_how %in% c('text','plot_text')){
       # create annotation text element to add to grob
@@ -349,7 +349,7 @@ plot_cumgains <- function(data=plot_input,custom_line_colors=NA,highlight_decile
       filename <-   paste0(getwd(),'/',pp$plottype,'.png')
 cat("No filename for saved plot specified! Specify 'save_fig_filename' to customize location and name.\n")
     }
-cat(paste0("Plot is saved as: ",filename,"\n\n"))
+#cat(paste0("Plot is saved as: ",filename,"\n\n"))
     ggplot2::ggsave(file=filename,plot=plot,width = 18, height = 12, units = "cm",dpi=320)
     #ggplot2::ggsave(file=filename,plot=plot)
   }
@@ -492,7 +492,7 @@ plot_cumlift <- function(data=plot_input,custom_line_colors=NA,highlight_decile=
       filename <-   paste0(getwd(),'/',pp$plottype,'.png')
       cat("No filename for saved plot specified! Specify 'save_fig_filename' to customize location and name.\n")
     }
-    cat(paste0("Plot is saved as: ",filename,"\n\n"))
+    #cat(paste0("Plot is saved as: ",filename,"\n\n"))
     ggplot2::ggsave(file=filename,plot=plot,width = 18, height = 12, units = "cm",dpi=320)
     #ggplot2::ggsave(file=filename,plot=plot)
   }
@@ -642,7 +642,7 @@ plot_response <- function(data=plot_input,custom_line_colors=NA,highlight_decile
       filename <-   paste0(getwd(),'/',pp$plottype,'.png')
       cat("No filename for saved plot specified! Specify 'save_fig_filename' to customize location and name.\n")
     }
-    cat(paste0("Plot is saved as: ",filename,"\n\n"))
+    #cat(paste0("Plot is saved as: ",filename,"\n\n"))
     ggplot2::ggsave(file=filename,plot=plot,width = 18, height = 12, units = "cm",dpi=320)
     #ggplot2::ggsave(file=filename,plot=plot)
   }
@@ -792,7 +792,7 @@ plot_cumresponse <- function(data=plot_input,custom_line_colors=NA,highlight_dec
       filename <-   paste0(getwd(),'/',pp$plottype,'.png')
       cat("No filename for saved plot specified! Specify 'save_fig_filename' to customize location and name.\n")
     }
-    cat(paste0("Plot is saved as: ",filename,"\n\n"))
+    #cat(paste0("Plot is saved as: ",filename,"\n\n"))
     ggplot2::ggsave(file=filename,plot=plot,width = 18, height = 12, units = "cm",dpi=320)
     #ggplot2::ggsave(file=filename,plot=plot)
   }
@@ -915,7 +915,7 @@ plot_all <- function(data=plot_input,custom_line_colors=NA,save_fig=FALSE,save_f
       filename <-   paste0(getwd(),'/',pp$plottype,'.png')
       cat("No filename for saved plot specified! Specify 'save_fig_filename' to customize location and name.\n")
     }
-    cat(paste0("Plot is saved as: ",filename,"\n\n"))
+    #cat(paste0("Plot is saved as: ",filename,"\n\n"))
     ggplot2::ggsave(file=filename,plot=plot,width = 36, height = 24, units = "cm",dpi=320)
     #ggplot2::ggsave(file=filename,plot=plot)
   }
