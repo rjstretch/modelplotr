@@ -3,7 +3,7 @@
 ##@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@##
 
 
-setplotparams <- function(plot_input,plottype,custom_line_colors) {
+setplotparams <- function(plot_input,plottype,plottitle,plotsubtitle,custom_line_colors) {
 
 #  plot_input <- plot_input
 #  plottype <- "Lift"
@@ -44,15 +44,17 @@ setplotparams <- function(plot_input,plottype,custom_line_colors) {
   pp$linecols <- c(pp$levelcols,'gray')
   pp$linesizes <- c(rep(1,pp$nlevels),0.5)
 
-  pp$plottitle <- pp$plottype
-  pp$plotsubtitle <-
-    ifelse(pp$seltype=="compare_datasets",paste0('scope: comparing datasets & model: ',
-      pp$selmod,' & target class: ' ,pp$selval),
-      ifelse(pp$seltype=="compare_models",paste0('scope: comparing models & dataset: ',
-        pp$seldata,' & target class: ',pp$selval),
-        ifelse(pp$seltype=="compare_targetclasses",paste0('scope: comparing target classes & dataset: ',
-          pp$seldata,'"  &  model: ',pp$selmod),
-          paste0('model: ',pp$selmod,'  &  dataset: ',pp$seldata,'"  &  target class: ',pp$selval))))
+  pp$plottitle <- plottitle
+  #pp$plottitle <- plottype
+  pp$plotsubtitle <- plotsubtitle
+  #pp$plotsubtitle <-
+  #  ifelse(pp$seltype=="compare_datasets",paste0('scope: comparing datasets & model: ',
+  #    pp$selmod,' & target class: ' ,pp$selval),
+  #    ifelse(pp$seltype=="compare_models",paste0('scope: comparing models & dataset: ',
+  #      pp$seldata,' & target class: ',pp$selval),
+  #      ifelse(pp$seltype=="compare_targetclasses",paste0('scope: comparing target classes & dataset: ',
+  #        pp$seldata,'"  &  model: ',pp$selmod),
+  #        paste0('model: ',pp$selmod,'  &  dataset: ',pp$seldata,'"  &  target class: ',pp$selval))))
 
   pp$multiplottitle <- ifelse(pp$seltype=="compare_datasets",
                           paste0('scope: comparing datasets & model: ',pp$selmod,' & target class: ' ,pp$selval),
@@ -285,7 +287,9 @@ plot_cumgains <- function(data=plot_input,custom_line_colors=NA,highlight_decile
   highlight_decile <- highlight_decile
   highlight_how <- highlight_how
 
-  pp <- setplotparams(plot_input = plot_input,plottype = "Cumulative gains",custom_line_colors=custom_line_colors)
+  pp <- setplotparams(plot_input = plot_input, plottype = "Cumulative gains",
+                      plottitle=title, plotsubtitle=subtitle, 
+                      custom_line_colors=custom_line_colors)
 
   # rearrange plot_input
   vallines <- plot_input %>% dplyr::mutate(refline=0) %>% dplyr::select(scope:decile,plotvalue=cumgain,legend,refline)
@@ -314,9 +318,9 @@ plot_cumgains <- function(data=plot_input,custom_line_colors=NA,highlight_decile
     ggplot2::scale_color_manual(values=pp$gainslinecols)+
     ggplot2::scale_size_manual(values=pp$gainslinesizes)+
     ggplot2::scale_alpha_manual(values=pp$gainsalphas)+
-    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=scales::percent,expand = c(0, 0.02)) +
+    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=function(x) paste0(x*10, "%"),expand = c(0, 0.02)) +
     ggplot2::scale_y_continuous(name=ylab,breaks=seq(0,1,0.2),labels = scales::percent ,expand = c(0, 0.02)) +
-    ggplot2::labs(title=title,subtitle=subtitle) +
+    ggplot2::labs(title=pp$plottitle,subtitle=pp$plotsubtitle) +
     ggplot2::theme_minimal() +
     ggplot2::theme(plot.title = ggplot2::element_text(size = 14,hjust = 0.5),
                    plot.subtitle = ggplot2::element_text(size = 10,hjust = 0.5,face="italic")) +
