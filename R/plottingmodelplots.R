@@ -207,7 +207,7 @@ annotate_plot <- function(plot=plot,plot_input=plot_input_prepared,
       # create grob layout and add elements to it
       lay <- as.matrix(c(1,2,rep(3,20),rep(4,1+pp$nlevels)))
       plot <- gridExtra::arrangeGrob(title,subtitle,plot,annotextplot, layout_matrix = lay,
-        widths = grid::unit(16, "cm"),heights = grid::unit(rep(12/(23+pp$nlevels),23+pp$nlevels), "cm"))
+        widths = grid::unit(16, "cm"),heights = grid::unit(rep(10/(23+pp$nlevels),23+pp$nlevels), "cm"))
       }
   }
   return(plot)
