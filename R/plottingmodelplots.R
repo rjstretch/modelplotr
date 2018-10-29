@@ -279,7 +279,7 @@ annotate_plot <- function(plot=plot,plot_input=plot_input_prepared,
 #' @seealso \url{https://modelplot.github.io/} for our blog on the value of the model plots
 plot_cumgains <- function(data=plot_input,custom_line_colors=NA,highlight_decile=NA,highlight_how='plot_text',
                           title="Cumulative Gains",subtitle="",
-                          xlab="decile",ylab="cumulative gains",
+                          xlab="Decile",ylab="Cumulative Gains",
                           save_fig=FALSE,save_fig_filename=NA) {
 
   plot_input <- data
@@ -429,13 +429,17 @@ cat(paste0("Plot is saved as: ",filename,"\n\n"))
 #' @seealso \url{https://github.com/modelplot/modelplotr} for details on the package
 #' @seealso \url{https://modelplot.github.io/} for our blog on the value of the model plots
 plot_cumlift <- function(data=plot_input,custom_line_colors=NA,highlight_decile=NA,highlight_how='plot_text',
+                         title="Cumulative Lift",subtitle="",
+                         xlab="Decile",ylab="Cumulative Lift",
                          save_fig=FALSE,save_fig_filename=NA) {
 
   plot_input <- data
   custom_line_colors <- custom_line_colors
   highlight_decile <- highlight_decile
 
-  pp <- setplotparams(plot_input = plot_input,plottype = "Cumulative lift",custom_line_colors=custom_line_colors)
+  pp <- setplotparams(plot_input = plot_input, plottype = "Cumulative lift",
+                      plottitle=title, plotsubtitle=subtitle, 
+                      custom_line_colors=custom_line_colors)
 
   # rearrange plot_input
   vallines <- plot_input %>% dplyr::mutate(refline=0) %>% dplyr::filter(decile>0) %>%
@@ -456,8 +460,8 @@ plot_cumlift <- function(data=plot_input,custom_line_colors=NA,highlight_decile=
     ggplot2::scale_color_manual(values=pp$liftlinecols)+
     ggplot2::scale_size_manual(values=pp$liftlinesizes)+
     ggplot2::scale_alpha_manual(values=pp$liftalphas)+
-    ggplot2::scale_x_continuous(name="decile", breaks=0:10, labels=0:10,expand = c(0, 0.02)) +
-    ggplot2::scale_y_continuous(name="cumulative lift" ,labels = scales::percent,expand = c(0, 0.02)) +
+    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=function(x) paste0(x*10, "%"),expand = c(0, 0.02)) +
+    ggplot2::scale_y_continuous(name=ylab, labels = scales::percent, expand = c(0, 0.02)) +
     ggplot2::expand_limits(y=c(0,max(2,max(plot_input_prepared$plotvalue,na.rm = T)))) +
     ggplot2::labs(title=pp$plottitle,subtitle=pp$plotsubtitle) +
     ggplot2::theme_minimal() +
@@ -566,13 +570,17 @@ plot_cumlift <- function(data=plot_input,custom_line_colors=NA,highlight_decile=
 #' @seealso \url{https://github.com/modelplot/modelplotr} for details on the package
 #' @seealso \url{https://modelplot.github.io/} for our blog on the value of the model plots
 plot_response <- function(data=plot_input,custom_line_colors=NA,highlight_decile=NA,highlight_how='plot_text',
+                          title="Response",subtitle="",
+                          xlab="Decile",ylab="Reponse",
                           save_fig=FALSE,save_fig_filename=NA) {
 
   plot_input <- data
   custom_line_colors <- custom_line_colors
   highlight_decile <- highlight_decile
 
-  pp <- setplotparams(plot_input = plot_input,plottype = "Response",custom_line_colors=custom_line_colors)
+  pp <- setplotparams(plot_input = plot_input, plottype = "Response",
+                      plottitle=title, plotsubtitle=subtitle, 
+                      custom_line_colors=custom_line_colors)
 
   # rearrange plot_input
   vallines <- plot_input %>% dplyr::mutate(refline=0) %>% dplyr::filter(decile>0) %>%
@@ -601,8 +609,8 @@ plot_response <- function(data=plot_input,custom_line_colors=NA,highlight_decile
     ggplot2::scale_color_manual(values=pp$resplinecols)+
     ggplot2::scale_size_manual(values=pp$resplinesizes)+
     ggplot2::scale_alpha_manual(values=pp$respalphas)+
-    ggplot2::scale_x_continuous(name="decile", breaks=0:10, labels=0:10,expand = c(0, 0.02)) +
-    ggplot2::scale_y_continuous(name="response" ,expand = c(0, 0.02),labels = scales::percent) +
+    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=function(x) paste0(x*10, "%"),expand = c(0, 0.02)) +
+    ggplot2::scale_y_continuous(name=ylab,labels = scales::percent ,expand = c(0, 0.02)) +
     ggplot2::expand_limits(y=0) +
     ggplot2::labs(title=pp$plottitle,subtitle=pp$plotsubtitle) +
     ggplot2::theme_minimal() +
@@ -712,13 +720,17 @@ plot_response <- function(data=plot_input,custom_line_colors=NA,highlight_decile
 #' @seealso \url{https://github.com/modelplot/modelplotr} for details on the package
 #' @seealso \url{https://modelplot.github.io/} for our blog on the value of the model plots
 plot_cumresponse <- function(data=plot_input,custom_line_colors=NA,highlight_decile=NA,highlight_how='plot_text',
+                             title="Cumulative Response",subtitle="",
+                             xlab="Decile",ylab="Cumulative Response",
                              save_fig=FALSE,save_fig_filename=NA) {
 
   plot_input <- data
   custom_line_colors <- custom_line_colors
   highlight_decile <- highlight_decile
 
-  pp <- setplotparams(plot_input = plot_input,plottype = "Cumulative response",custom_line_colors=custom_line_colors)
+  pp <- setplotparams(plot_input = plot_input, plottype = "Cumulative response",
+                      plottitle=title, plotsubtitle=subtitle, 
+                      custom_line_colors=custom_line_colors)
   #plot_input = plot_input
   # rearrange plot_input
   vallines <- plot_input %>% dplyr::mutate(refline=0) %>% dplyr::filter(decile>0) %>%
@@ -747,8 +759,8 @@ plot_cumresponse <- function(data=plot_input,custom_line_colors=NA,highlight_dec
     ggplot2::scale_color_manual(values=pp$resplinecols)+
     ggplot2::scale_size_manual(values=pp$resplinesizes)+
     ggplot2::scale_alpha_manual(values=pp$respalphas)+
-    ggplot2::scale_x_continuous(name="decile", breaks=0:10, labels=0:10,expand = c(0, 0.02)) +
-    ggplot2::scale_y_continuous(name="cumulative response" ,expand = c(0, 0.02),labels = scales::percent) +
+    ggplot2::scale_x_continuous(name=xlab, breaks=0:10, labels=function(x) paste0(x*10, "%"),expand = c(0, 0.02)) +
+    ggplot2::scale_y_continuous(name=ylab,labels = scales::percent ,expand = c(0, 0.02)) +           
     ggplot2::expand_limits(y=0) +
     ggplot2::labs(title=pp$plottitle,subtitle=pp$plotsubtitle) +
     ggplot2::theme_minimal() +
@@ -847,7 +859,9 @@ plot_all <- function(data=plot_input,custom_line_colors=NA,save_fig=FALSE,save_f
 
   plot_input <- data
   custom_line_colors <- custom_line_colors
-  pp <- setplotparams(plot_input = plot_input,plottype = "ALL",custom_line_colors=custom_line_colors)
+  pp <- setplotparams(plot_input = plot_input, plottype = "ALL",
+                      plottitle=NULL, plotsubtitle=NULL, 
+                      custom_line_colors=custom_line_colors)
 
   # make plot_cumgains without
   cumgainsplot <- plot_cumgains() + ggplot2::labs(title="Cumulative gains",subtitle=NA) +
